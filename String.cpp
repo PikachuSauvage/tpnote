@@ -24,6 +24,18 @@ String::String(){
 }
 
 
+String::String(size_t n , char c){
+	size_=n;
+	capacity_=getCapacity(n);
+	data_=new char[capacity_+1];
+  for (unsigned int i =0; i<n; i++){
+    data_[i]=c;
+  }
+  data_[n]='\0';
+}
+
+
+
 // ===========================================================================
 //                                 Destructor
 // ===========================================================================

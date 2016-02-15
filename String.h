@@ -41,6 +41,8 @@ class String{
 // =========================================================================
 //constructeur par defaut
 String();
+//constructeur par repetition d'un caractere c, n fois
+String(size_t n , char c);
   
 // ===========================================================================
 //                                 Destructor
