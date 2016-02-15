@@ -8,6 +8,7 @@
 #define STRING_H_
 
 class String{
+  
  protected:
   size_t size_;
   char* tab_;
@@ -50,15 +51,5 @@ class String{
 
 };
 
-
-
-#endif
- 
- 
- 
- 
- 
-
-}
 
 #endif // STRING_H_
