@@ -7,6 +7,9 @@
 #ifndef STRING_H_
 #define STRING_H_
 
+#include <cstdlib>
+
+
 class String{
   
  protected:
