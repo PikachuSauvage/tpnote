@@ -11,12 +11,26 @@
 
 
 class String{
-  
  protected:
+ 
   size_t size_;
-  char* tab_;
+  char* data_;
   size_t capacity_;
   static const size_t MAX_SIZE;
+  
+ 
+// =========================================================================
+//                              Protected Methods
+// ========================================================================= 
+  // methode qui retourne la capcite en fonction de la taille de la chaine
+  size_t getCapacity(size_t size); 
+  
+  
+  
+  
+  
+  
+  
   
  public:
  
@@ -25,7 +39,8 @@ class String{
 // =========================================================================
 //                               Constructors
 // =========================================================================
-
+//constructeur par defaut
+String();
   
 // ===========================================================================
 //                                 Destructor
