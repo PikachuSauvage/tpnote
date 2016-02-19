@@ -25,7 +25,7 @@ String::String(){
 
 
 String::String(size_t n , char c){
-	size_=n;
+	size_=n; // n+1 ?
 	capacity_=getCapacity(n);
 	data_=new char[capacity_+1];
   for (unsigned int i =0; i<n; i++){
@@ -50,6 +50,14 @@ size_t String::getCapacity(size_t size){
 	return size*2;
 }
 
+bool String :: empty() const{
+  if (size_==0){
+    return true;
+  }
+  else {
+    return false;
+    }
+}
 // =========================================================================
 //                                  Getters
 // =========================================================================
