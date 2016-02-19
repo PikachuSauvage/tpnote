@@ -8,6 +8,7 @@
 #define STRING_H_
 
 #include <cstdlib>
+#include <cstdio>
 
 
 class String{
@@ -55,6 +56,9 @@ String(size_t n , char c);
 // =========================================================================
 // whether the String is empty or not 
 bool empty() const;
+
+//adapt the String capacity_ to a length up to n characters
+void reserve (size_t n = 0);
   // =========================================================================
   //                                  Getters
   // =========================================================================

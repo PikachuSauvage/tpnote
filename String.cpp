@@ -25,7 +25,7 @@ String::String(){
 
 
 String::String(size_t n , char c){
-	size_=n; // n+1 ?
+	size_=n; 
 	capacity_=getCapacity(n);
 	data_=new char[capacity_+1];
   for (unsigned int i =0; i<n; i++){
@@ -57,6 +57,37 @@ bool String :: empty() const{
   else {
     return false;
     }
+}
+
+void String :: reserve (size_t n ){ //default 0 ?
+  
+  if (n>size_){
+    if (n>MAX_SIZE){
+      printf("can't allow required capacity");
+    }
+    else {
+      char* new_data;
+      new_data = new char[n+1];
+      for (unsigned int i =0; i<=size_; i++){
+        new_data[i]=data_[i];
+      }
+      delete data_;
+      data_=new_data;
+      capacity_=n;
+    }
+  
+  }
+  else {
+      char* new_data;
+      new_data = new char[size_];
+      for (unsigned int i =0; i<size_; i++){
+        new_data[i]=data_[i];
+      }
+      delete data_;
+      data_=new_data;
+      capacity_=size_;
+  }
+
 }
 // =========================================================================
 //                                  Getters
