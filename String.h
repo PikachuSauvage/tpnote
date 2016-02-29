@@ -24,14 +24,7 @@ class String{
 // ========================================================================= 
   // methode qui retourne la capcite en fonction de la taille de la chaine
   size_t getCapacity(size_t size); 
-  
-  
-  
-  
-  
-  
-  
-  
+
  public:
  
   
@@ -41,9 +34,12 @@ class String{
 // =========================================================================
 //constructeur par defaut
 String();
+String(char* str_in);
 //constructeur par repetition d'un caractere c, n fois
 String(size_t n , char c);
-  
+size_t length() const noexcept;
+size_t max_size() const noexcept;
+void resize(size_t count);
 // ===========================================================================
 //                                 Destructor
 // ===========================================================================
