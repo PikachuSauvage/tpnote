@@ -107,17 +107,23 @@ String& String::operator=(const String elem){
 //operateur +(char) prend en parametre un char c et l'ajoute à la chaine s
 //prise en parametre
 String operator+(const String& s, const char c){
-  String Snew;
-  Snew.size_=s.size_+1;
-  Snew.capacity_=Snew.getCapacity(Snew.size_);
-  Snew.data_=new char[Snew.capacity_+1];
-  for(unsigned int i=0; i<s.size_;i++){
-    Snew.data_[i]=s.data_[i];
+  if(s.size()==String::MAX_SIZE){
+    printf("Depasse capacite");
+    return s;
+  }else{
+    String Snew;
+    Snew.size_=s.size_+1;
+    Snew.capacity_=Snew.getCapacity(Snew.size_);
+    Snew.data_=new char[Snew.capacity_+1];
+    for(unsigned int i=0; i<s.size_;i++){
+      Snew.data_[i]=s.data_[i];
+    }
+    Snew.data_[s.size_]=c;
+    Snew.data_[s.size_+1]='\0';
+    return Snew;
   }
-  Snew.data_[s.size_]=c;
-  Snew.data_[s.size_+1]='\0';
-  return Snew;  
-} 
+}
+ 
 
 void String :: reserve (size_t n){ //default 0 ?
   if (n>size_){
