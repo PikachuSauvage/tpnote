@@ -42,7 +42,10 @@ class String{
 //constructeur par defaut
 String();
 //constructeur par repetition d'un caractere c, n fois
-String(size_t n , char c);
+String(size_t n , char c) ;
+//constructeur par copie 
+String( const String& s );
+
   
 // ===========================================================================
 //                                 Destructor
@@ -56,7 +59,7 @@ String(size_t n , char c);
   // =========================================================================
   //                                  Getters
   // =========================================================================
-
+size_t size() const;
 
   // =========================================================================
   //                                  Setters
