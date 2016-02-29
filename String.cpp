@@ -68,6 +68,12 @@ size_t String::size()const {
 }
 
 
+char String::getChar(int i)const{
+  return data_[i];
+}
+
+
+
  
 // =========================================================================
 //                                  Setters
