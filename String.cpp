@@ -14,6 +14,7 @@ const size_t String ::MAX_SIZE = 100;
 // ===========================================================================
 
 String::String(){
+  printf("Welcome to constructors\n");
 	size_=0;
 	capacity_=getCapacity(0);
 	data_=nullptr;
@@ -47,8 +48,10 @@ String::String(char* str_in){
 // ===========================================================================
 //                                 Destructor
 // ===========================================================================
-String::~String(){
-  delete data_;
+String::~String()
+{
+  printf("Welcome to destructors\n");
+  delete[] data_;
   data_=nullptr;
 }
 // ===========================================================================
@@ -76,7 +79,7 @@ void String :: reserve (size_t n){ //default 0 ?
       for (unsigned int i =0; i<=size_; i++){
         new_data[i]=data_[i];
       }
-      delete data_;
+      delete[] data_;
       data_=new_data;
       capacity_=n;
     }
@@ -87,7 +90,7 @@ void String :: reserve (size_t n){ //default 0 ?
       for (unsigned int i =0; i<size_; i++){
         new_data[i]=data_[i];
       }
-      delete data_;
+      delete[] data_;
       data_=new_data;
       capacity_=size_;
   }
@@ -138,7 +141,7 @@ void String::resize(size_t count){
 			for (size_t i=size_; i< count; i++)
 				nptr[i]=' ';
 			nptr[count]='\0';
-			delete data_;
+			delete[] data_;
 			data_=nptr;
 			size_=count;
 		}
@@ -154,6 +157,7 @@ String operator+(const String& A,const String& B){
   String result;
   result.size_=A.size_+B.size_;
   result.capacity_=A.capacity_+B.capacity_;
+  delete[] result.data_;
   result.data_=new char [result.capacity_+1];
   for (unsigned int i=0; i<result.size_; i++){
     if (i<A.size_){
