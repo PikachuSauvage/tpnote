@@ -19,6 +19,10 @@ int main(int argc, char* argv[]){
   d=h2.capacity();
   printf("capacité : %zu \n",d);
   
+  char* c1= new char('a');
+  h=c1;
+  delete c1;
+  
   return 0;
 
 }

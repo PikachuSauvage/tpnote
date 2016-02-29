@@ -86,6 +86,7 @@ void String :: reserve (size_t n ){ //default 0 ?
       delete data_;
       data_=new_data;
       capacity_=size_;
+      
   }
 
 }

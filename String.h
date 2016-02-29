@@ -62,13 +62,20 @@ void reserve (size_t n = 0);
   // =========================================================================
   //                                  Getters
   // =========================================================================
+// get capacity
 inline size_t capacity() const;
 
   // =========================================================================
   //                                  Setters
   // =========================================================================
  
+  // =========================================================================
+  //                                 Operators
+  // =========================================================================
 
+// = operator with char* given
+inline String& operator=(const char* other);
+//friend String operator+(const String& A,const String& B);
 };
 
 // ===========================================================================
@@ -77,5 +84,18 @@ inline size_t capacity() const;
 inline size_t String :: capacity() const{
   return capacity_;
 }
+
+// ===========================================================================
+//                            Operators' definitions
+// ===========================================================================
+inline String& String :: operator=(const char* other){
+  size_=1;
+  capacity_=getCapacity(size_);
+  data_=new char[capacity_+1];
+  data_[0]=*other;
+  data_[1]='\0';
+  return *this;
+}
+
 
 #endif // STRING_H_
