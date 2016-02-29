@@ -107,4 +107,22 @@ void String :: reserve (size_t n ){ //default 0 ?
 //                              Public Methods
 // ===========================================================================
 
+// ===========================================================================
+//                            Operators' definitions
+// ===========================================================================
+String operator+(const String& A,const String& B){
+  String result;
+  result.size_=A.size_+B.size_;
+  result.capacity_=A.capacity_+B.capacity_;
+  result.data_=new char [result.capacity_+1];
+  for (unsigned int i=0; i<result.size_; i++){
+    if (i<A.size_){
+      result.data_[i]=A.data_[i];
+    }
+    else {
+      result.data_[i]=B.data_[i-A.size_];
+    }
+  }
+  return result;
+}
 

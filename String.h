@@ -73,9 +73,11 @@ inline size_t capacity() const;
   //                                 Operators
   // =========================================================================
 
-// = operator with char* given
+// operator = overloading with char* given
 inline String& operator=(const char* other);
-//friend String operator+(const String& A,const String& B);
+
+// operator + overloading  with string given
+friend String operator+(const String& A,const String& B);
 };
 
 // ===========================================================================
