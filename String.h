@@ -24,6 +24,8 @@ class String{
 // ========================================================================= 
   // methode qui retourne la capcite en fonction de la taille de la chaine
   size_t getCapacity(size_t size); 
+  const char* c_str() const;
+  
   
   
   

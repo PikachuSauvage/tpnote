@@ -58,6 +58,9 @@ String::String( const String& s ){
 size_t String::getCapacity(size_t size){
 	return size*2;
 }
+const char* String::c_str() const{
+  return data_;
+}
 
 // =========================================================================
 //                                  Getters
