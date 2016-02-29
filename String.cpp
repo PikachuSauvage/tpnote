@@ -5,15 +5,10 @@
 // ===========================================================================
 
 #include "String.h"
-#include <cstdlib>
 // =========================================================================
 //                               Definition of static attribute
 // =========================================================================
 const size_t String ::MAX_SIZE = 100;
-
-
-
-
 // ===========================================================================
 //                                Constructors
 // ===========================================================================
@@ -23,7 +18,6 @@ String::String(){
 	capacity_=getCapacity(0);
 	data_=nullptr;
 }
-
 
 String::String(size_t n , char c){
 	size_=n;
@@ -71,8 +65,7 @@ bool String :: empty() const{
     }
 }
 
-void String :: reserve (size_t n ){ //default 0 ?
-  
+void String :: reserve (size_t n){ //default 0 ?
   if (n>size_){
     if (n>MAX_SIZE){
       printf("can't allow required capacity");
@@ -87,7 +80,6 @@ void String :: reserve (size_t n ){ //default 0 ?
       data_=new_data;
       capacity_=n;
     }
-  
   }
   else {
       char* new_data;
@@ -98,7 +90,6 @@ void String :: reserve (size_t n ){ //default 0 ?
       delete data_;
       data_=new_data;
       capacity_=size_;
-      
   }
 
 }
@@ -140,17 +131,22 @@ void String::resize(size_t count){
 			data_[count]='\0';
 			size_=count;
 		} else {
-			data_=(char *)realloc(data_, count+1);
+			char* nptr= new char [count+1];
+			for (unsigned int i =0; i<size_; i++){
+				nptr[i]=data_[i];
+			}
 			for (size_t i=size_; i< count; i++)
-				data_[i]=' ';
-			data_[count]='\0';
+				nptr[i]=' ';
+			nptr[count]='\0';
+			delete data_;
+			data_=nptr;
 			size_=count;
-		}		
+		}
 	} else {
 		data_[count]='\0';
 		size_=count;
 	} // Besoin de tester avec valgrind
-
+}
 // ===========================================================================
 //                            Operators' definitions
 // ===========================================================================
