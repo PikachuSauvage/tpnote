@@ -83,14 +83,14 @@ friend String operator+(const String& A,const String& B);
 };
 
 // ===========================================================================
-//                            Getters' definitions
+//                             Getters' inline definitions
 // ===========================================================================
 inline size_t String::capacity() const{
   return capacity_;
 }
 
 // ===========================================================================
-//                            Operators' definitions
+//                            Operators' inline definitions
 // ===========================================================================
 inline String& String :: operator=(const char* other){
   size_=1;
