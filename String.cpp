@@ -213,7 +213,7 @@ void String::resize(size_t count){
 	} else {
 		data_[count]='\0';
 		size_=count;
-	} // Besoin de tester avec valgrind
+	}
 }
 // ===========================================================================
 //                            Operators' definitions
