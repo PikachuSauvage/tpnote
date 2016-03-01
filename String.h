@@ -35,9 +35,9 @@ class String{
 // =========================================================================
 //constructeur par defaut
 String();
-String(char* str_in);
 //constructeur par repetition d'un caractere c, n fois
 String(size_t n , char c) ;
+String(char* str_in);
 //constructeur par copie 
 String( const String& s );
 size_t length() const noexcept;

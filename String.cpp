@@ -9,22 +9,17 @@
 //                               Definition of static attribute
 // =========================================================================
 const size_t String ::MAX_SIZE = 100;
-
-
-
-
 // ===========================================================================
 //                                Constructors
 // ===========================================================================
 
-//Constructeur par defaut
+//Defaut constructor
 String::String(){
 	size_=0;
 	capacity_=getCapacity(0);
 	data_=nullptr;
 }
-
-//constructeur par valeur
+//Constructor by repetition of a single carecter
 String::String(size_t n , char c){
 	size_=n;
 	capacity_=getCapacity(n);
@@ -35,8 +30,8 @@ String::String(size_t n , char c){
   data_[n]='\0';
 }
 
-//methode de construction par copie
-String::String( const String& s ){
+//constructeur from a copy
+String::String (const String& s){
   if(s.size()<MAX_SIZE){  
     size_=s.size();
     capacity_=getCapacity(size_);
@@ -47,6 +42,8 @@ String::String( const String& s ){
     data_[size_+1]='\0';
   }
 }
+
+//constructeur par valeur
 String::String(char* str_in){
 	size_t len=0;
 	while (str_in[len] != '\0'){
@@ -61,6 +58,7 @@ String::String(char* str_in){
 		data_[i]=str_in[i]; 
 	//Doit-on definir toujour le dernier case comme \0
 }
+
 
 // ===========================================================================
 //                                 Destructor
