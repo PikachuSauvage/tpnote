@@ -9,22 +9,17 @@
 //                               Definition of static attribute
 // =========================================================================
 const size_t String ::MAX_SIZE = 100;
-
-
-
-
 // ===========================================================================
 //                                Constructors
 // ===========================================================================
 
-//Constructeur par defaut
+//Defaut constructor
 String::String(){
 	size_=0;
 	capacity_=getCapacity(0);
 	data_=nullptr;
 }
-
-//constructeur par valeur
+//Constructor by repetition of a single carecter
 String::String(size_t n , char c){
 	size_=n;
 	capacity_=getCapacity(n);
@@ -35,8 +30,8 @@ String::String(size_t n , char c){
   data_[n]='\0';
 }
 
-//methode de construction par copie
-String::String( const String& s ){
+//constructeur from a copy
+String::String (const String& s){
   if(s.size()<MAX_SIZE){  
     size_=s.size();
     capacity_=getCapacity(size_);
@@ -47,6 +42,8 @@ String::String( const String& s ){
     data_[size_+1]='\0';
   }
 }
+
+//constructeur par valeur
 String::String(char* str_in){
 	size_t len=0;
 	while (str_in[len] != '\0'){
@@ -61,6 +58,7 @@ String::String(char* str_in){
 		data_[i]=str_in[i]; 
 	//Doit-on definir toujour le dernier case comme \0
 }
+
 
 // ===========================================================================
 //                                 Destructor
@@ -107,17 +105,23 @@ String& String::operator=(const String elem){
 //operateur +(char) prend en parametre un char c et l'ajoute à la chaine s
 //prise en parametre
 String operator+(const String& s, const char c){
-  String Snew;
-  Snew.size_=s.size_+1;
-  Snew.capacity_=Snew.getCapacity(Snew.size_);
-  Snew.data_=new char[Snew.capacity_+1];
-  for(unsigned int i=0; i<s.size_;i++){
-    Snew.data_[i]=s.data_[i];
+  if(s.size()==String::MAX_SIZE){
+    printf("Depasse capacite");
+    return s;
+  }else{
+    String Snew;
+    Snew.size_=s.size_+1;
+    Snew.capacity_=Snew.getCapacity(Snew.size_);
+    Snew.data_=new char[Snew.capacity_+1];
+    for(unsigned int i=0; i<s.size_;i++){
+      Snew.data_[i]=s.data_[i];
+    }
+    Snew.data_[s.size_]=c;
+    Snew.data_[s.size_+1]='\0';
+    return Snew;
   }
-  Snew.data_[s.size_]=c;
-  Snew.data_[s.size_+1]='\0';
-  return Snew;  
-} 
+}
+ 
 
 void String :: reserve (size_t n){ //default 0 ?
   if (n>size_){
@@ -220,7 +224,7 @@ void String::resize(size_t count){
 	} else {
 		data_[count]='\0';
 		size_=count;
-	} // Besoin de tester avec valgrind
+	}
 }
 // ===========================================================================
 //                            Operators' definitions

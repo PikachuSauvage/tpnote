@@ -35,9 +35,9 @@ class String{
 // =========================================================================
 //constructeur par defaut
 String();
-String(char* str_in);
 //constructeur par repetition d'un caractere c, n fois
 String(size_t n , char c) ;
+String(char* str_in);
 //constructeur par copie 
 String( const String& s );
 size_t length() const noexcept;
@@ -84,14 +84,14 @@ friend String operator+(const String& A,const String& B);
 };
 
 // ===========================================================================
-//                            Getters' definitions
+//                             Getters' inline definitions
 // ===========================================================================
 inline size_t String::capacity() const{
   return capacity_;
 }
 
 // ===========================================================================
-//                            Operators' definitions
+//                            Operators' inline definitions
 // ===========================================================================
 inline String& String :: operator=(const char* other){
   size_=1;
