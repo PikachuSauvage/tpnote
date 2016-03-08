@@ -70,6 +70,28 @@ String::~String()
   data_=nullptr;
 }
 // ===========================================================================
+//                               Protected Methods
+// ===========================================================================
+
+size_t String::getCapacity(size_t size){
+	size=size*2;
+	if (size>MAX_SIZE)
+		return MAX_SIZE;
+	else
+		return size;
+}
+
+size_t String::length(const char* s){
+	size_t len=0;
+	while (s[len] != '\0'){
+		if (len>= MAX_SIZE-1) //Reserver la place de \0
+			break;
+		len++;
+	}
+	return len;
+}
+
+// ===========================================================================
 //                               Public Methods
 // ===========================================================================
 
@@ -182,14 +204,6 @@ char String::getChar(int i)const{
 // ===========================================================================
 //                              Public Methods
 // ===========================================================================
-size_t String::getCapacity(size_t size){
-	size=size*2;
-	if (size>MAX_SIZE)
-		return MAX_SIZE;
-	else
-		return size;
-}
-
 
 void String::resize(size_t count){
 	if (count > size_){
