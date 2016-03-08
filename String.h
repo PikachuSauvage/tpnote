@@ -50,7 +50,8 @@ void clear();
 // whether the String is empty or not 
 bool empty() const;
 //adapt the String capacity_ to a length up to n characters
-void reserve (size_t n = 0);
+void reserve (size_t n );
+void reserve ();
   // =========================================================================
   //                                  Getters
   // =========================================================================
