@@ -300,7 +300,7 @@ size_t String::max_size() const noexcept{
  * \return size_t 
  */
 
-size_t String::size()const {
+size_t String::size()const noexcept {
     return size_;
 }
 
@@ -389,7 +389,7 @@ String operator+(const String& lhs, const char* rhs){
 		result.data_= new char[result.capacity_ + 1];
 		for (unsigned int i=0; i < lhs.length(); i++)
 			result.data_[i]=lhs.data_[i];
-		for (unsigned int i=0; i < rhs_length; i++)
+		for (int i=0; i < rhs_length; i++)
 			result.data_[i+lhs.length()]=rhs[i];
 		// Here, we need to make a choice bewteen lhs.length() and 
 		// lhs.size_
