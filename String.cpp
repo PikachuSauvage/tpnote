@@ -47,9 +47,9 @@ String::String (const String& s){
 String::String(char* str_in){
     size_t len=0;
     while (str_in[len] != '\0'){
-	if (len>= MAX_SIZE-1) //Reserver la place de \0
-	    break;
-	len++;
+		if (len>= MAX_SIZE-1) //Reserver la place de \0
+			break;
+		len++;
     }
     size_=len;
     capacity_=getCapacity(len);
@@ -84,9 +84,9 @@ size_t String::getCapacity(size_t size){
 size_t String::length(const char* s){
     size_t len=0;
     while (s[len] != '\0'){
-	if (len>= MAX_SIZE-1) //Reserver la place de \0
-	    break;
-	len++;
+		if (len>= MAX_SIZE-1) //Reserver la place de \0
+			break;
+		len++;
     }
     return len;
 }
