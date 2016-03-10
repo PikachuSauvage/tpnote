@@ -66,7 +66,7 @@ class String{
     // =========================================================================
     // operator = overloading with char* given
     inline String& operator=(const char* other);
-    String& operator=(const String elem);
+    inline String& operator=(const String elem);
     inline String& operator=(char c);
     // operator + overloading  with string given
     friend String operator+(const String& s, const char c);
@@ -99,6 +99,15 @@ inline String& String :: operator=(char c){
     data_=new char[capacity_+1]; 
     data_[0]=c;
     data_[size_]='\0';
+    return *this;
+}
+
+inline String& String::operator=(const String elem){
+    size_=elem.size();
+    capacity_=getCapacity(size_);
+    for(unsigned int i=0; i<size_;i++){
+	data_[i]=elem.data_[i];
+    }
     return *this;
 }
 

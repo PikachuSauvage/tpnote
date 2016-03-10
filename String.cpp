@@ -65,7 +65,7 @@ String::String(char* str_in){
 // ===========================================================================
 String::~String()
 {
-    printf("Welcome to destructors\n");
+    //printf("Welcome to destructors\n");
     delete[] data_;
     data_=nullptr;
 }
@@ -114,14 +114,7 @@ void String::clear(){
     size_=0;
 }
 
-String& String::operator=(const String elem){
-    size_=elem.size();
-    capacity_=getCapacity(size_);
-    for(unsigned int i=0; i<size_;i++){
-	data_[i]=elem.data_[i];
-    }
-    return *this;
-}
+
 
 
 //operateur +(char) prend en parametre un char c et l'ajoute à la chaine s
