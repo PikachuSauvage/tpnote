@@ -1,25 +1,36 @@
 
 
-// ===========================================================================
+// =====================================================================
 //                                  Includes
-// ===========================================================================
+// =====================================================================
 
 #include "String.h"
-// =========================================================================
+// =====================================================================
 //                               Definition of static attribute
-// =========================================================================
+// =====================================================================
 const size_t String::MAX_SIZE = 100;
-// ===========================================================================
+// =====================================================================
 //                                Constructors
-// ===========================================================================
+// =====================================================================
 
-//Defaut constructor
+/**
+ * \brief Constructor 
+ * \details default
+ * \param void
+ * \return \e void
+ */
 String::String(){
     size_=0;
     capacity_=getCapacity(0);
     data_=nullptr;
 }
-//Constructor by repetition of a single carecter
+/**
+ * \brief Constructor 
+ * \details repetition of a single character
+ * \param size_t n as length of the String
+ * \param char c as repeted character
+ * \return \e void
+ */
 String::String(size_t n , char c){
     size_=n;
     capacity_=getCapacity(n);
@@ -30,7 +41,12 @@ String::String(size_t n , char c){
     data_[n]='\0';
 }
 
-//constructeur from a copy
+/**
+ * \brief Copy Constructor 
+ * \details 
+ * \param const String& s as copied String
+ * \return \e void
+ */
 String::String (const String& s){
     if(s.size()<MAX_SIZE){  
 	size_=s.size();
@@ -43,7 +59,12 @@ String::String (const String& s){
     }
 }
 
-//constructeur par valeur
+/**
+ * \brief Constructor 
+ * \details  from a c-string
+ * \param char* str_in 
+ * \return \e void
+ */
 String::String(char* str_in){
     size_t len=0;
     while (str_in[len] != '\0'){
@@ -60,26 +81,48 @@ String::String(char* str_in){
 }
 
 
-// ===========================================================================
+// =====================================================================
 //                                 Destructor
-// ===========================================================================
+// =====================================================================
+
+/**
+ * \brief Destructor
+ * \details 
+ * \param void
+ * \return \e void
+ */
+
 String::~String()
 {
     //printf("Welcome to destructors\n");
     delete[] data_;
     data_=nullptr;
 }
-// ===========================================================================
+// =====================================================================
 //                               Protected Methods
-// ===========================================================================
+// =====================================================================
+
+/**
+ * \brief getCapacity
+ * \details calculate capacity from a given string size
+ * \param size_t size
+ * \return size_t size
+ */
 
 size_t String::getCapacity(size_t size){
     size=size*2;
     if (size>MAX_SIZE)
-	return MAX_SIZE;
+      return MAX_SIZE;
     else
-	return size;
+      return size;
 }
+
+/**
+ * \brief length
+ * \details get the length of a null-terminated chain
+ * \param const char* s
+ * \return size_t len
+ */
 
 size_t String::length(const char* s){
     size_t len=0;
@@ -91,12 +134,42 @@ size_t String::length(const char* s){
     return len;
 }
 
-// ===========================================================================
+// =====================================================================
 //                               Public Methods
-// ===========================================================================
+// =====================================================================
 
+/**
+ * \brief c_str
+ * \details return a pointer to an array that contains a null terminated
+ * sequence of character (a c-string) representing the current value of
+ * the String object 
+ * \param void
+ * \return char* data_
+ */
+const char* String::c_str() const noexcept{
+    return data_;
+}
 
-bool String :: empty() const{
+/**
+ * \brief clear
+ * \details erase the content of the String wich become an empty String
+ * with a length of 0 characters
+ * \param void
+ * \return void
+ */
+void String::clear(){
+	data_[0]='\0';
+    size_=0;
+}
+
+/**
+ * \brief empty
+ * \details whether the String is empty or not, true if the String length 
+ * is 0, false otherwise
+ * \param void
+ * \return bool 
+ */
+bool String :: empty() const noexcept{
     if (size_==0){
 	return true;
     }
@@ -105,40 +178,16 @@ bool String :: empty() const{
     }
 }
 
-const char* String::c_str() const{
-    return data_;
-}
-
-void String::clear(){
-	data_[0]='\0';
-    size_=0;
-}
-
-
-
-
-//operateur +(char) prend en parametre un char c et l'ajoute à la chaine s
-//prise en parametre
-String operator+(const String& s, const char c){
-    if(s.size()==String::MAX_SIZE){
-	printf("Depasse capacite");
-	return s;
-    }else{
-	String Snew;
-	Snew.size_=s.size_+1;
-	Snew.capacity_=Snew.getCapacity(Snew.size_);
-	Snew.data_=new char[Snew.capacity_+1];
-	for(unsigned int i=0; i<s.size_;i++){
-	    Snew.data_[i]=s.data_[i];
-	}
-	Snew.data_[s.size_]=c;
-	Snew.data_[s.size_+1]='\0';
-	return Snew;
-    }
-}
- 
-
-void String :: reserve (size_t n){ //default 0 ?
+/**
+ * \brief reserve
+ * \details adapt the String capacity_ to a length up to n characters
+ * If n is greater than the current string size while smaller than 
+ * MAX_SIZE, the capacity is set to n
+ * If its smaller than size then the capacity is set to size
+ * \param size_t n
+ * \return void
+ */
+void String :: reserve (size_t n){ 
     if (n>size_){
 	if (n>MAX_SIZE){
 	    printf("can't allow required capacity");
@@ -165,7 +214,12 @@ void String :: reserve (size_t n){ //default 0 ?
 	capacity_=size_;
     }
 }
-
+/**
+ * \brief reserve overload
+ * \details set the capacity to size
+ * \param void
+ * \return void
+ */
 void String :: reserve (){
     char* new_data;
     new_data = new char[size_];
@@ -176,6 +230,61 @@ void String :: reserve (){
     data_=new_data;
     capacity_=size_;
 }
+
+/**
+ * \brief resize
+ * \details resize a String to length of count character
+ * \param size_t count
+ * \return void
+ */
+ 
+void String::resize(size_t count){
+    if (count > size_){
+	if (count < capacity_) {
+	    for (size_t i=size_; i< count; i++)
+		data_[i]=' ';
+	    data_[count]='\0';
+	    size_=count;
+	} else {
+	    char* nptr= new char [count+1];
+	    for (unsigned int i =0; i<size_; i++){
+		nptr[i]=data_[i];
+	    }
+	    for (size_t i=size_; i< count; i++)
+		nptr[i]=' ';
+	    nptr[count]='\0';
+	    delete[] data_;
+	    data_=nptr;
+	    size_=count;
+	}
+    } else {
+	data_[count]='\0';
+	size_=count;
+    }
+}
+
+//operateur +(char) prend en parametre un char c et l'ajoute à la chaine s
+//prise en parametre
+String operator+(const String& s, const char c){
+    if(s.size()==String::MAX_SIZE){
+	printf("Depasse capacite");
+	return s;
+    }else{
+	String Snew;
+	Snew.size_=s.size_+1;
+	Snew.capacity_=Snew.getCapacity(Snew.size_);
+	Snew.data_=new char[Snew.capacity_+1];
+	for(unsigned int i=0; i<s.size_;i++){
+	    Snew.data_[i]=s.data_[i];
+	}
+	Snew.data_[s.size_]=c;
+	Snew.data_[s.size_+1]='\0';
+	return Snew;
+    }
+}
+ 
+
+
 // =========================================================================
 //                                  Getters
 // =========================================================================
@@ -204,35 +313,6 @@ char String::getChar(int i)const{
 // =========================================================================
 
 
-
-// ===========================================================================
-//                              Public Methods
-// ===========================================================================
-
-void String::resize(size_t count){
-    if (count > size_){
-	if (count < capacity_) {
-	    for (size_t i=size_; i< count; i++)
-		data_[i]=' ';
-	    data_[count]='\0';
-	    size_=count;
-	} else {
-	    char* nptr= new char [count+1];
-	    for (unsigned int i =0; i<size_; i++){
-		nptr[i]=data_[i];
-	    }
-	    for (size_t i=size_; i< count; i++)
-		nptr[i]=' ';
-	    nptr[count]='\0';
-	    delete[] data_;
-	    data_=nptr;
-	    size_=count;
-	}
-    } else {
-	data_[count]='\0';
-	size_=count;
-    }
-}
 // ===========================================================================
 //                            Operators' definitions
 // ===========================================================================
