@@ -233,7 +233,8 @@ void String :: reserve (){
 
 /**
  * \brief resize
- * \details resize a String to length of count character
+ * \details resize a String to length of count character, complete with
+ * 			space if needed
  * \param size_t count
  * \return void
  */
@@ -263,6 +264,37 @@ void String::resize(size_t count){
     }
 }
 
+/**
+ * \brief resize
+ * \details resize a String to length of count character, complete with 
+ * 			character c if needed
+ * \param size_t count, char c
+ * \return void
+ */
+ 
+void String::resize(size_t count, char c){
+    if (count > size_){
+		if (count < capacity_) {
+			for (size_t i=size_; i< count; i++)
+				data_[i]=c;
+			data_[count]='\0';
+			size_=count;
+		} else {
+			char* nptr= new char [count+1];
+			for (unsigned int i =0; i<size_; i++)
+				nptr[i]=data_[i];
+			for (size_t i=size_; i< count; i++)
+				nptr[i]=c;
+			nptr[count]='\0';
+			delete[] data_;
+			data_=nptr;
+			size_=count;
+		}
+    } else {
+		data_[count]='\0';
+		size_=count;
+    }
+}
 //operateur +(char) prend en parametre un char c et l'ajoute à la chaine s
 //prise en parametre
 String operator+(const String& s, const char c){
