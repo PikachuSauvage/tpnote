@@ -360,35 +360,30 @@ size_t String::capacity() const noexcept{
  * \return String
  */
 
-String operator+(const String& A,const String& B){
+String operator+(const String& lhs,const String& rhs){
     String result;
-    if (A.size_+B.size_>String :: MAX_SIZE){ //why String::MAX_SIZE
-	printf("too long, only first string added");
-	result.size_=A.size_;
-	result.capacity_=A.capacity_;
+    if (lhs.size_+rhs.size_>String :: MAX_SIZE){ //why String::MAX_SIZE
+	printf("too long, taking only left hand side");
+	result.size_=lhs.size_;
+	result.capacity_=lhs.capacity_;
 	delete[] result.data_;
 	result.data_=new char [result.capacity_+1];
-	for (unsigned int i=0; i<result.size_; i++){
-	    result.data_[i]=A.data_[i];
-	}
-	return result;
-    }
-    else {
-	result.size_=A.size_+B.size_;
-	result.capacity_=A.capacity_+B.capacity_;
+	for (unsigned int i=0; i<result.size_; i++)
+	    result.data_[i]=lhs.data_[i];
+    } else {
+	result.size_=lhs.size_+rhs.size_;
+	result.capacity_=lhs.capacity_+rhs.capacity_;
 	delete[] result.data_;
 	result.data_=new char [result.capacity_+1];
-	for (unsigned int i=0; i<result.size_; i++){
-	    if (i<A.size_){
-		result.data_[i]=A.data_[i];
-	    }
-	    else {
-		result.data_[i]=B.data_[i-A.size_];
-	    }
-	}
-	return result;
+	for (unsigned int i=0; i<lhs.size(); i++)
+		result.data_[i]=lhs.data_[i];
+	for (unsigned int i=lhs.size(); i<=result.size(); i++)
+		result.data_[i]=rhs.data_[i-lhs.size_];
+	//result.data_[result.size_]='\0';
     }
+    return result;
 }
+
 
 /**
  * \brief operator+ overloading
