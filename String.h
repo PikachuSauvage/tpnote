@@ -48,15 +48,15 @@ class String{
     //                              Public Methods
     // =================================================================
     const char* c_str() const noexcept;
-    void clear ();
+    void clear () noexcept;
     bool empty() const noexcept;
     void reserve (size_t n );
     void reserve ();
     void resize(size_t count);
     void resize(size_t count, char c);
-    // =========================================================================
+    // =================================================================
     //                                  Getters
-    // =========================================================================
+    // =================================================================
     size_t length() const noexcept;
     size_t max_size() const noexcept;
     size_t size() const noexcept;

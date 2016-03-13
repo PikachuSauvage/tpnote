@@ -155,7 +155,7 @@ const char* String::c_str() const noexcept{
  * \param void
  * \return void
  */
-void String::clear(){
+void String::clear() noexcept{
 	data_[0]='\0';
     size_=0;
 }
