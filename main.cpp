@@ -66,6 +66,7 @@ int main(int argc, char* argv[]){
     
     //Test of Public Methods
     printf("==Test for c_str()==\n");
+    
     printf("==Test for resize()==\n");
     h8.resize(5);
 	printf("h8.resize(5):\n");
@@ -92,6 +93,7 @@ int main(int argc, char* argv[]){
     printf("c_str: %s \n",h8.c_str());
     printf("Length: %zu \n", h8.length());
     printf("Capacity: %zu \n\n",h8.capacity());
+    
     printf("==Test for clear()==\n");
     printf("Before h8.clear\n");
     printf("c_str: %s \n",h8.c_str());
@@ -102,41 +104,36 @@ int main(int argc, char* argv[]){
     printf("c_str: %s \n",h8.c_str());
     printf("Length: %zu \n", h8.length());
     printf("Capacity: %zu \n\n",h8.capacity());
-    //String h2(5,'x');
-    //String h3=h2;
-    ////printf ("%s \n",h3.c_str());
-    //printf ("%c \n",h2.getChar(1));
-    //printf ("%c \n",h3.getChar(1));
-    //printf ("%s \n",h2.c_str());
-    //h2.clear();
-    //printf ("%s \n",h2.c_str());
-    //h2=h3;
-    //printf ("%s \n",h2.c_str());
-    //h3=h2+'c';
-    //printf ("%s \n",h3.c_str());
-    //// test capacity
-    //size_t d=h2.capacity();
-    //printf("capacité : %zu \n",d);
-  
-    ////test reserve
-    //h2.reserve(15);
-    //d=h2.capacity();
-    //printf("capacité : %zu \n",d);
-    //printf("length before: %zu \n", h2.length());
-    ////test = with char*
-    //char* c1= new char('a');
-    //h=c1;
-    //delete c1;
-  
-    ////test + with string
-    //String h6(5,'a');
-    //String h4= h6 + h2;
-    //printf("Hi there \n");
-    //// Test for operator+(const String& lhs, const char* rhs)
-    //printf("Test for operator+(const String& lhs, const char* rhs\n");
-    //h2=h2+h6;
-    //printf("length : %zu \n", h2.length());
-    //printf("capacity : %zu \n", h2.capacity());
+    
+    printf("==Test for empty()==\n");
+    printf("String h1 (defined with defaut constructor):\n");
+    printf("c_str: %s \n",h1.c_str());
+    printf("Length: %zu \n", h1.length());
+    printf("Capacity: %zu \n",h1.capacity());
+    printf("Empty: %d\n\n",h1.empty());
+    printf("String h2:\n");
+    printf("c_str: %s \n",h2.c_str());
+    printf("Length: %zu \n", h2.length());
+    printf("Capacity: %zu \n",h2.capacity());
+    printf("Empty: %d\n\n",h2.empty());
+    
+    printf("==Test for reserve()==\n");
+    printf("String h2:\n");
+    printf("Length: %zu \n", h2.length());
+    printf("Capacity: %zu \n\n",h2.capacity());
+    h2.reserve(4);
+    printf("h2.reserve(4)\n");
+    printf("Length: %zu \n", h2.length());
+    printf("Capacity: %zu \n\n",h2.capacity());
+    h2.reserve(40);
+    printf("h2.reserve(40)\n");
+    printf("Length: %zu \n", h2.length());
+    printf("Capacity: %zu \n\n",h2.capacity());
+    h2.reserve(140);
+    printf("h2.reserve(140)\n");
+    printf("Length: %zu \n", h2.length());
+    printf("Capacity: %zu \n\n",h2.capacity());
+
     return 0;
 }
 
