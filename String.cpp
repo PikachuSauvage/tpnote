@@ -372,7 +372,7 @@ String operator+(const String& lhs,const String& rhs){
 	    result.data_[i]=lhs.data_[i];
     } else {
 	result.size_=lhs.size_+rhs.size_;
-	result.capacity_=lhs.capacity_+rhs.capacity_;
+	result.capacity_=result.getCapacity(result.size_);
 	delete[] result.data_;
 	result.data_=new char [result.capacity_+1];
 	for (unsigned int i=0; i<lhs.size(); i++)
@@ -400,12 +400,9 @@ String operator+(const String& lhs, const char* rhs){
 	int rhs_length = result.length(rhs); 
 	//In case that string is super long 
 	if (lhs.length()+rhs_length > String::MAX_SIZE ) {
-		printf("Warning: strings concatenation size out of range");
-		result.size_=lhs.size_;
-		result.capacity_=lhs.capacity_;
-		result.data_= new char[result.capacity_ + 1];
-		for (unsigned int i=0; i < result.size_; i++)
-			result.data_[i]=lhs.data_[i];
+		printf("Warning: strings concatenation size out of range"
+		" taking only left hand side\n");
+		result=lhs;
 		return result;
 	} else {
 		result.size_=lhs.length()+rhs_length;
@@ -415,6 +412,47 @@ String operator+(const String& lhs, const char* rhs){
 			result.data_[i]=lhs.data_[i];
 		for (int i=0; i < rhs_length; i++)
 			result.data_[i+lhs.length()]=rhs[i];
+		result.data_[result.size_]='\0';
+		// Need to give '\0' manually in case str.len()=0 and c_str=100
+		// and not null-terminated
+		
+		// Here, we need to make a choice bewteen lhs.length() and 
+		// lhs.size_
+		// lhs.length() is a legal public method which not requires 
+		// make friend of 2 objects
+		// On the other hand, it will be called at each turn in the for 
+		// loop, which could be a lot if string is long.
+		return result;
+	}
+}
+
+/**
+ * \brief operator+ overloading
+ * \details returns a newly constructed String object with its value 
+ * being the concatenation of the characters in a String lhs followed by 
+ * those of c_string rhs
+ * \param String& lhs
+ * \param char* rhs
+ * \return String
+ */
+
+String operator+(const char* lhs, const String& rhs){
+	String result;
+	int lhs_length = result.length(lhs); 
+	//In case that string is super long 
+	if (lhs_length+rhs.length() > String::MAX_SIZE ) {
+		printf("Warning: strings concatenation size out of range"
+		" taking only left hand side\n");
+		result=lhs;
+		return result;
+	} else {
+		result.size_=rhs.length()+lhs_length;
+		result.capacity_=result.getCapacity(result.size_);
+		result.data_= new char[result.capacity_ + 1];
+		for (unsigned int i=0; i < lhs_length; i++)
+			result.data_[i]=lhs[i];
+		for (int i=0; i <= rhs.length(); i++)
+			result.data_[i+lhs_length]=rhs.data_[i];
 		// Here, we need to make a choice bewteen lhs.length() and 
 		// lhs.size_
 		// lhs.length() is a legal public method which not requires 
@@ -437,7 +475,7 @@ String operator+(const String& lhs, const char* rhs){
 
 String operator+(const String& s, const char c){
     if(s.size()==String::MAX_SIZE){
-	printf("Depasse capacite");
+	printf("MAX_SIZE achived, can't add one more char");
 	return s;
     }else{
 	String Snew;
