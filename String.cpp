@@ -54,9 +54,9 @@ String::String(size_t n , char c){
 String::String (const String& str){ 
 	size_=str.size();
 	capacity_=getCapacity(size_);
-	data_= new char[capacity_+1]; // dpa OK
+	data_= new char[capacity_+1];
 	for(unsigned int i=0; i<size_;i++)
-	    data_[i]=str.getChar(i);
+	    data_[i]=str[i];
 	data_[size_]='\0';
 }
 
@@ -89,7 +89,6 @@ String::String(char* str_in){
 
 String::~String()
 {
-    //printf("Welcome to destructors\n");
     delete[] data_;
     data_=nullptr;
 }
@@ -188,12 +187,11 @@ bool String :: empty() const noexcept{
 void String :: reserve (size_t n){ 
     if (n>size_){// do nothing if not
 	if (n>MAX_SIZE){
-	    printf("can't allow required capacity\n");
+	    printf("Warning(reserve): can't allow required capacity\n");
 	    //When requied size exceed, refuse and do nothing
 	} else {
 		//realloc
-	    char* new_data;
-	    new_data = new char[n+1];
+	    char* new_data = new char[n+1];
 	    for (unsigned int i =0; i<=size_; i++)
 		new_data[i]=data_[i];
 	    delete[] data_;
@@ -230,7 +228,8 @@ void String :: reserve (){
 void String::resize(size_t count){
     if (count > MAX_SIZE){
 	printf("Warning (String::resize): requied size exceed MAX_SIZE "
-	       "and it will be shortened to MAX_SIZE which is %zu\n",MAX_SIZE);
+	       "and it will be shortened to MAX_SIZE which is %zu\n",
+	       MAX_SIZE);
 	count=MAX_SIZE;
     }
     if (count > size_){
@@ -266,12 +265,13 @@ void String::resize(size_t count){
 void String::resize(size_t count, char c){
     if (count > MAX_SIZE){
 	printf("Warning (String::resize): requied size exceed MAX_SIZE "
-	       "and it will be shortened to MAX_SIZE which is %zu\n",MAX_SIZE);
+	       "and it will be shortened to MAX_SIZE which is %zu\n",
+	       MAX_SIZE);
 	count=MAX_SIZE;
     }
     if (count > size_){
 	if (count < capacity_) {
-	    for (size_t i=size_; i< count; i++)
+	    for (unsigned int i=size_; i< count; i++)
 		data_[i]=c;
 	    data_[count]='\0';
 	    size_=count;
@@ -363,7 +363,8 @@ size_t String::capacity() const noexcept{
 String operator+(const String& lhs,const String& rhs){
     String result;
     if (lhs.size_+rhs.size_>String :: MAX_SIZE){ //why String::MAX_SIZE
-	printf("too long, taking only left hand side");
+	printf("Warning (operator+()):too long, "
+	"taking only left hand side");
 	result.size_=lhs.size_;
 	result.capacity_=lhs.capacity_;
 	delete[] result.data_;
@@ -400,7 +401,7 @@ String operator+(const String& lhs, const char* rhs){
 	int rhs_length = result.length(rhs); 
 	//In case that string is super long 
 	if (lhs.length()+rhs_length > String::MAX_SIZE ) {
-		printf("Warning: strings concatenation size out of range"
+		printf("Warning (operator+): strings concatenation size out of range"
 		" taking only left hand side\n");
 		result=lhs;
 		return result;
@@ -441,7 +442,7 @@ String operator+(const char* lhs, const String& rhs){
 	int lhs_length = result.length(lhs); 
 	//In case that string is super long 
 	if (lhs_length+rhs.length() > String::MAX_SIZE ) {
-		printf("Warning: strings concatenation size out of range"
+		printf("Warning(operator+): strings concatenation size out of range"
 		" taking only left hand side\n");
 		result=lhs;
 		return result;
@@ -474,24 +475,41 @@ String operator+(const char* lhs, const String& rhs){
  */
 
 String operator+(const String& s, const char c){
+	String result;
     if(s.size()==String::MAX_SIZE){
-	printf("MAX_SIZE achived, can't add one more char");
-	return s;
+	printf("Warning(operator +): "
+	"MAX_SIZE achived, failed add one more char\n");
+	result=s;
+	return result;
     }else{
-	String Snew;
-	Snew.size_=s.size_+1;
-	Snew.capacity_=Snew.getCapacity(Snew.size_);
-	Snew.data_=new char[Snew.capacity_+1];
-	for(unsigned int i=0; i<s.size_;i++){
-	    Snew.data_[i]=s.data_[i];
-	}
-	Snew.data_[s.size_]=c;
-	Snew.data_[s.size_+1]='\0';
-	return Snew;
+	result.size_=s.size_+1;
+	result.capacity_=result.getCapacity(result.size_);
+	result.data_=new char[result.capacity_+1];
+	for(unsigned int i=0; i<s.size_;i++)
+	    result.data_[i]=s.data_[i];
+	result.data_[s.size_]=c;
+	result.data_[s.size_+1]='\0';
+	return result;
     }
 }
 
-
+String operator+(const char c, const String& s){
+	String result;
+    if(s.size()==String::MAX_SIZE){
+	printf("Warning(operator +): failed to add a max-sized string\n");
+	result=c;
+	return result;
+    }else{
+	result.size_=s.size_+1;
+	result.capacity_=result.getCapacity(result.size_);
+	result.data_=new char[result.capacity_+1];
+	result.data_[0]=c;
+	for(unsigned int i=1; i<=s.size_;i++)
+	    result.data_[i]=s.data_[i];
+	result.data_[s.size_+1]='\0';
+	return result;
+    }
+}
 /**
  * \brief operator[] overload
  * \details returns a reference to the character at position pos in the 
@@ -499,7 +517,22 @@ String operator+(const String& s, const char c){
  * \param int pos
  * \return char&
  */
+char& String::operator[] (size_t pos){
+	if (pos<=MAX_SIZE)
+	return data_[pos];
+	else{
+	printf("Warning(operator[]): "
+	"Requied position out of range, returning last char\n");
+	return data_[MAX_SIZE];//Haven't found a better solution;
+}
+}
 
-char String::getChar(int pos)const{
-    return data_[pos];
+const char& String::operator[] (size_t pos) const{
+	if (pos<=MAX_SIZE)
+	return data_[pos];
+	else{
+	printf("Warning(operator[]): "
+	"Requied position out of range, returning last char\n");
+	return data_[MAX_SIZE];//Haven't found a better solution;
+}
 }

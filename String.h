@@ -68,13 +68,14 @@ class String{
     inline String& operator=(const char* other);
     inline String& operator=(const String elem);
     inline String& operator=(char c);
-    char getChar(int pos)const;
     // operator + overloading  with string given
     friend String operator+(const String& s, const char c);
+    friend String operator+(const char c, const String& s);
     friend String operator+(const String& lhs, const String& rhs);
     friend String operator+(const String& lhs, const char* rhs);
     friend String operator+(const char* lhs, const String& rhs);
-    
+    char& operator[] (size_t pos);
+	const char& operator[] (size_t pos) const;
 };
 
 // =====================================================================
@@ -94,7 +95,7 @@ inline String& String :: operator=(const char* other){
     data_=new char[capacity_+1];
     for (unsigned int i=0; i<size_; i++)
 		data_[i]=other[i];
-    data_[size_]='\0';
+	data_[size_]='\0';
     return *this;
 }
 /**
@@ -119,7 +120,6 @@ inline String& String :: operator=(char c){
  * \return *this
  */
 inline String& String::operator=(const String elem){
-	//printf("elem size= %zu \n",elem.size());
     size_=elem.size_;
     capacity_=getCapacity(size_);
     data_= new char[capacity_+1];
