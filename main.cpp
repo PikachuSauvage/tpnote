@@ -56,7 +56,7 @@ int main(int argc, char* argv[]){
     char c2[]= "12345678901234567890123456789012345678901234567890"
     "123456789012345678901234567890123456789012345678901234567890"
     "1234567890";
-    printf("c2 =%s (lenth=110)\n",c2);
+    printf("c2 = %s (lenth=110)\n",c2);
 	String h8=String(c2);
     printf("String h8 delarated with String h8=String(c2)\n");
     printf("c_str: %s \n",h8.c_str());
@@ -66,8 +66,42 @@ int main(int argc, char* argv[]){
     
     //Test of Public Methods
     printf("==Test for c_str()==\n");
-    
-    
+    printf("==Test for resize()==\n");
+    h8.resize(5);
+	printf("h8.resize(5):\n");
+	printf("c_str: %s \n",h8.c_str());
+    printf("Length: %zu \n", h8.length());
+    printf("Capacity: %zu \n\n",h8.capacity());
+    h8.resize(0);
+    printf("h8.resize(0):\n");
+    printf("c_str: %s \n",h8.c_str());
+    printf("Length: %zu \n", h8.length());
+    printf("Capacity: %zu \n\n",h8.capacity());
+    h8.resize(120);
+    printf("h8.resize(120):\n");
+    printf("c_str: %s \n",h8.c_str());
+    printf("Length: %zu \n", h8.length());
+    printf("Capacity: %zu \n\n",h8.capacity());
+    h8.resize(0,'c');
+    printf("h8.resize(0,'c');:\n");
+    printf("c_str: %s \n",h8.c_str());
+    printf("Length: %zu \n", h8.length());
+    printf("Capacity: %zu \n\n",h8.capacity());
+    h8.resize(120,'c');
+    printf("h8.resize(120,'c'):\n");
+    printf("c_str: %s \n",h8.c_str());
+    printf("Length: %zu \n", h8.length());
+    printf("Capacity: %zu \n\n",h8.capacity());
+    printf("==Test for clear()==\n");
+    printf("Before h8.clear\n");
+    printf("c_str: %s \n",h8.c_str());
+    printf("Length: %zu \n", h8.length());
+    printf("Capacity: %zu \n\n",h8.capacity());
+    h8.clear();
+	printf("After h8.clear()\n");
+    printf("c_str: %s \n",h8.c_str());
+    printf("Length: %zu \n", h8.length());
+    printf("Capacity: %zu \n\n",h8.capacity());
     //String h2(5,'x');
     //String h3=h2;
     ////printf ("%s \n",h3.c_str());
