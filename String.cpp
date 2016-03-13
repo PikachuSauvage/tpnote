@@ -186,31 +186,21 @@ bool String :: empty() const noexcept{
  * \return void
  */
 void String :: reserve (size_t n){ 
-    if (n>size_){
+    if (n>size_){// do nothing if not
 	if (n>MAX_SIZE){
-	    printf("can't allow required capacity");
-	}
-	else {
+	    printf("can't allow required capacity\n");
+	    //When requied size exceed, refuse and do nothing
+	} else {
+		//realloc
 	    char* new_data;
 	    new_data = new char[n+1];
-	    for (unsigned int i =0; i<=size_; i++){
+	    for (unsigned int i =0; i<=size_; i++)
 		new_data[i]=data_[i];
-	    }
 	    delete[] data_;
 	    data_=new_data;
 	    capacity_=n;
 	}
-    }
-    else {
-	char* new_data;
-	new_data = new char[size_];
-	for (unsigned int i =0; i<size_; i++){
-	    new_data[i]=data_[i];
 	}
-	delete[] data_;
-	data_=new_data;
-	capacity_=size_;
-    }
 }
 /**
  * \brief reserve overload
