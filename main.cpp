@@ -5,14 +5,15 @@
 
 int main(int argc, char* argv[]){
     //Test Constructors:
-    printf("==Test for defaut constructor String()==\n");
+    printf("*******Test for defaut constructor String()*******\n");
     String h1=String();
     printf("String h1 delarated with String h=String()\n");
     printf("c_str: %s \n",h1.c_str());
     printf("Length: %zu \n", h1.length());
     printf("Capacity: %zu \n\n",h1.capacity());
     
-	printf("==Test for fill constructor String(size_t n, char c)==\n");
+	printf("******Test for fill constructor String(size_t n, char c)"
+	"******\n");
     String h2=String(5,'x');
     printf("String h2 delarated with String h2=String(5,'x')\n");
     printf("c_str: %s \n",h2.c_str());
@@ -31,7 +32,8 @@ int main(int argc, char* argv[]){
     printf("Length: %zu \n", h4.length());
     printf("Capacity: %zu \n\n",h4.capacity());
     
-    printf("==Test for Copy Constructor String(const String& str)==\n");
+    printf("******Test for Copy Constructor String(const String& str)"
+    "*******\n");
     String h5=String(h1);
     printf("String h5 delarated with String h5=String(h1)\n");
     printf("c_str: %s \n",h5.c_str());
@@ -44,7 +46,7 @@ int main(int argc, char* argv[]){
     printf("Length: %zu \n", h6.length());
     printf("Capacity: %zu \n\n",h6.capacity());
 	
-	printf("==Test for C_str Constructor String(char* s)==\n");
+	printf("******Test for C_str Constructor String(char* s)******\n");
 	char c1[]= "abcdefg";
 	printf("c1 = %s\n", c1);
 	String h7=String(c1);
@@ -65,9 +67,7 @@ int main(int argc, char* argv[]){
     
     
     //Test of Public Methods
-    printf("==Test for c_str()==\n");
-    
-    printf("==Test for resize()==\n");
+    printf("******Test for resize()******\n");
     h8.resize(5);
 	printf("h8.resize(5):\n");
 	printf("c_str: %s \n",h8.c_str());
@@ -94,7 +94,7 @@ int main(int argc, char* argv[]){
     printf("Length: %zu \n", h8.length());
     printf("Capacity: %zu \n\n",h8.capacity());
     
-    printf("==Test for clear()==\n");
+    printf("******Test for clear()******\n");
     printf("Before h8.clear\n");
     printf("c_str: %s \n",h8.c_str());
     printf("Length: %zu \n", h8.length());
@@ -105,7 +105,7 @@ int main(int argc, char* argv[]){
     printf("Length: %zu \n", h8.length());
     printf("Capacity: %zu \n\n",h8.capacity());
     
-    printf("==Test for empty()==\n");
+    printf("*********Test for empty()*******\n");
     printf("String h1 (defined with defaut constructor):\n");
     printf("c_str: %s \n",h1.c_str());
     printf("Length: %zu \n", h1.length());
@@ -117,7 +117,7 @@ int main(int argc, char* argv[]){
     printf("Capacity: %zu \n",h2.capacity());
     printf("Empty: %d\n\n",h2.empty());
     
-    printf("==Test for reserve()==\n");
+    printf("******Test for reserve()******\n");
     printf("String h2:\n");
     printf("Length: %zu \n", h2.length());
     printf("Capacity: %zu \n\n",h2.capacity());
@@ -133,7 +133,67 @@ int main(int argc, char* argv[]){
     printf("h2.reserve(140)\n");
     printf("Length: %zu \n", h2.length());
     printf("Capacity: %zu \n\n",h2.capacity());
+	
+	// operator + (String& , String&)
+	printf("******Test for operator+(str, str)******\n");
+	String h9(10,'9');
+	String h10=h9+h3;
+	printf("String h10 = String h9 + String h3\n");
+	printf("c_str: %s \n",h10.c_str());
+	printf("Length: %zu \n", h10.length());
+    printf("Capacity: %zu \n\n",h10.capacity());
+    printf("String h10 = String h3 + String h9\n");
+	h10=h3+h9;
+	printf("c_str: %s \n",h10.c_str());
+	printf("Length: %zu \n", h10.length());
+    printf("Capacity: %zu \n\n",h10.capacity());
+    
+    printf("******Test for operator+(str, char *)******\n");
+    printf("String h11=h9+\"abcdefg\"\n");
+    String h11=h9+"abcdefg";
+	printf("c_str: %s \n",h11.c_str());
+	printf("Length: %zu \n", h11.length());
+    printf("Capacity: %zu \n\n",h11.capacity());
+    printf("h11=h9+c1\n");
+    h11=h9+c1;
+    printf("c_str: %s \n",h11.c_str());
+	printf("Length: %zu \n", h11.length());
+    printf("Capacity: %zu \n\n",h11.capacity());
 
+    printf("******Test for operator +(char*, str)******\n");
+    printf("h11=c1+h9\n");
+    h11=c1+h9;
+    printf("c_str: %s \n",h11.c_str());
+	printf("Length: %zu \n", h11.length());
+    printf("Capacity: %zu \n\n",h11.capacity());
+    printf("h11=c2+h9\n");
+    h11=c2+h9;
+    printf("c_str: %s \n",h11.c_str());
+	printf("Length: %zu \n", h11.length());
+    printf("Capacity: %zu \n\n",h11.capacity());
+    
+    printf("******Test for operator +(str, char)******\n");
+    printf("h11=h9+'z'\n");
+    h11=h9+'z';
+    printf("c_str: %s \n",h11.c_str());
+	printf("Length: %zu \n", h11.length());
+    printf("Capacity: %zu \n\n",h11.capacity());
+    printf("h13=h6+'z'\n");
+    String h13=h6+'z';
+    printf("c_str: %s \n",h13.c_str());
+	printf("Length: %zu \n", h13.length());
+    printf("Capacity: %zu \n\n",h13.capacity());
+    printf("******Test for operator +(str, char)******\n");
+    printf("h11='z'+h9\n");
+    h11='z'+h9;
+    printf("c_str: %s \n",h11.c_str());
+	printf("Length: %zu \n", h11.length());
+    printf("Capacity: %zu \n\n",h11.capacity());
+	printf("h13='z'+h6\n");
+    h13='z'+h6;
+    printf("c_str: %s \n",h13.c_str());
+	printf("Length: %zu \n", h13.length());
+    printf("Capacity: %zu \n\n",h13.capacity());
     return 0;
 }
 
