@@ -60,7 +60,7 @@ class String{
     size_t length() const noexcept;
     size_t max_size() const noexcept;
     size_t size() const noexcept;
-    size_t capacity() const;
+    size_t capacity() const noexcept;
  
     // =================================================================
     //                                 Operators

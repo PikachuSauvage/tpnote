@@ -341,7 +341,7 @@ size_t String::size()const noexcept {
  * \return size_t 
  */
 
-size_t String::capacity() const{
+size_t String::capacity() const noexcept{
     return capacity_;
 }
 
