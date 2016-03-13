@@ -12,7 +12,7 @@ const size_t String::MAX_SIZE = 100;
 // =====================================================================
 
 /**
- * \brief Constructor 
+ * \brief Defaut Constructor 
  * \details default
  * \param void
  * \return \e void
@@ -24,7 +24,7 @@ String::String(){
     data_[size_]='\0';
 }
 /**
- * \brief Constructor 
+ * \brief Fill Constructor 
  * \details repetition of a single character
  * \param size_t n as length of the String
  * \param char c as repeted character
@@ -55,31 +55,24 @@ String::String (const String& str){
 	size_=str.size();
 	capacity_=getCapacity(size_);
 	data_= new char[capacity_+1]; // dpa OK
-	for(unsigned int i=0; i<size_;i++){
+	for(unsigned int i=0; i<size_;i++)
 	    data_[i]=str.getChar(i);
-	}
 	data_[size_]='\0';
 }
 
 /**
- * \brief Constructor 
- * \details  from a c-string
+ * \brief Constructor from c-string
+ * \details from a null-terminated c-string
  * \param char* str_in 
  * \return \e void
  */
 String::String(char* str_in){
-    size_t len=0;
-    while (str_in[len] != '\0'){
-		if (len>= MAX_SIZE-1) //Reserver la place de \0
-			break;
-		len++;
-    }
-    size_=len;
-    capacity_=getCapacity(len);
+	size_=length(str_in);
+    capacity_=getCapacity(size_);
     data_=new char[capacity_+1];
-    for (unsigned int i = 0; i < len; i++)
-	data_[i]=str_in[i]; 
-    //Doit-on definir toujour le dernier case comme \0
+    for (unsigned int i = 0; i < size_; i++)
+		data_[i]=str_in[i];
+	data_[size_]='\0';
 }
 
 
@@ -129,8 +122,11 @@ size_t String::getCapacity(size_t size){
 size_t String::length(const char* s){
     size_t len=0;
     while (s[len] != '\0'){
-		if (len>= MAX_SIZE-1) //Reserver la place de \0
+		if (len>= MAX_SIZE-1){
+			printf("Warning : c_str input is too long and will be"
+			"shorted to MAX_SIZE which is %lu\n", MAX_SIZE);
 			break;
+		}
 		len++;
     }
     return len;
