@@ -8,9 +8,15 @@ int main(int argc, char* argv[]){
     //printf("Hello\n"); //1 alloc not freed
     //Test Constructors:
     printf("==Test defaut constructor String()==\n");
-    String h=String();
-    printf("Capacity: %zu \n",h.capacity());
-    printf("Length: %zu \n", h.length());
+    String h1=String();
+    printf("String h1 delarated with String h=String()\n");
+    printf("c_str: %s \n",h1.c_str());
+    printf("Length: %zu \n", h1.length());
+    printf("Capacity: %zu \n",h1.capacity());
+    String h2=String(5,'x');
+    printf("String h2 delarated with String h2=String(5,'x')\n");
+    printf("Length: %zu \n", h2.length());
+    printf("Capacity: %zu \n",h2.capacity());
     //String h2(5,'x');
     //String h3=h2;
     ////printf ("%s \n",h3.c_str());

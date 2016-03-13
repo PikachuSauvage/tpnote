@@ -20,7 +20,8 @@ const size_t String::MAX_SIZE = 100;
 String::String(){
     size_=0;
     capacity_=getCapacity(0);
-    data_=nullptr;
+    data_=new char[capacity_+1];
+    data_[size_]='\0';
 }
 /**
  * \brief Constructor 
