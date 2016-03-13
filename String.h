@@ -56,40 +56,35 @@ class String{
     // =========================================================================
     //                                  Getters
     // =========================================================================
-    size_t size() const;
-    char getChar(int i)const;
-    // get capacity, method for users
-    inline size_t capacity() const;
     size_t length() const noexcept;
     size_t max_size() const noexcept;
-
-    // =========================================================================
-    //                                  Setters
-    // =========================================================================
+    size_t size() const noexcept;
+    size_t capacity() const;
  
-    // =========================================================================
+    // =================================================================
     //                                 Operators
-    // =========================================================================
-    // operator = overloading with char* given
+    // =================================================================
     inline String& operator=(const char* other);
     inline String& operator=(const String elem);
     inline String& operator=(char c);
+    char getChar(int pos)const;
     // operator + overloading  with string given
     friend String operator+(const String& s, const char c);
     friend String operator+(const String& A, const String& B);
     friend String operator+(const String& lhs, const char* rhs);
+    
 };
 
-// ===========================================================================
-//                             Getters' inline definitions
-// ===========================================================================
-inline size_t String::capacity() const{
-    return capacity_;
-}
-
-// ===========================================================================
+// =====================================================================
 //                            Operators' inline definitions
-// ===========================================================================
+// =====================================================================
+
+/**
+ * \brief operator= overloading
+ * \details overloading with char* given
+ * \param char*
+ * \return *this
+ */
 
 inline String& String :: operator=(const char* other){
     size_=length(other);
@@ -98,7 +93,12 @@ inline String& String :: operator=(const char* other){
     data_[size_]='\0';
     return *this;
 }
-//
+/**
+ * \brief operator= overloading
+ * \details overloading with char given
+ * \param char
+ * \return *this
+ */
 inline String& String :: operator=(char c){
     size_=1;
     capacity_=getCapacity(size_);
@@ -108,6 +108,12 @@ inline String& String :: operator=(char c){
     return *this;
 }
 
+/**
+ * \brief operator= overloading
+ * \details overloading with String given
+ * \param String
+ * \return *this
+ */
 inline String& String::operator=(const String elem){
     size_=elem.size();
     capacity_=getCapacity(size_);

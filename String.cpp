@@ -1,5 +1,3 @@
-
-
 // =====================================================================
 //                                  Includes
 // =====================================================================
@@ -164,8 +162,8 @@ void String::clear(){
 
 /**
  * \brief empty
- * \details whether the String is empty or not, true if the String length 
- * is 0, false otherwise
+ * \details whether the String is empty or not, true if the String 
+ * length is 0, false otherwise
  * \param void
  * \return bool 
  */
@@ -263,7 +261,6 @@ void String::resize(size_t count){
 	size_=count;
     }
 }
-
 /**
  * \brief resize
  * \details resize a String to length of count character, complete with 
@@ -314,40 +311,74 @@ String operator+(const String& s, const char c){
 	return Snew;
     }
 }
- 
 
 
-// =========================================================================
+// =====================================================================
 //                                  Getters
-// =========================================================================
+// =====================================================================
 
 
+/**
+ * \brief length
+ * \details get the length of a String
+ * \param void
+ * \return size_t 
+ */
 
 size_t String::length() const noexcept{
     return size_;
 }
 
+/**
+ * \brief length
+ * \details get the maximum length the String can reach
+ * \param void
+ * \return size_t 
+ */
+
 size_t String::max_size() const noexcept{
     return MAX_SIZE;
 }
-size_t String::size()const {
+
+/**
+ * \brief size
+ * \details get the length of a String
+ * \param void
+ * \return size_t 
+ */
+
+size_t String::size()const noexcept {
     return size_;
 }
 
 
-char String::getChar(int i)const{
-    return data_[i];
+/**
+ * \brief capacity
+ * \details get the size of the storage space currently allocated for 
+ * the String
+ * \param void
+ * \return size_t 
+ */
+
+size_t String::capacity() const{
+    return capacity_;
 }
- 
- 
-// =========================================================================
-//                                  Setters
-// =========================================================================
 
-
-// ===========================================================================
+ 
+// =====================================================================
 //                            Operators' definitions
-// ===========================================================================
+// =====================================================================
+
+/**
+ * \brief operator+ overloading
+ * \details returns a newly constructed String object with its value 
+ * being the concatenation of the characters in a String A followed by 
+ * those of String B
+ * \param String&A
+ * \param String&B
+ * \return String
+ */
+
 String operator+(const String& A,const String& B){
     String result;
     if (A.size_+B.size_>String :: MAX_SIZE){ //why String::MAX_SIZE
@@ -377,6 +408,17 @@ String operator+(const String& A,const String& B){
 	return result;
     }
 }
+
+/**
+ * \brief operator+ overloading
+ * \details returns a newly constructed String object with its value 
+ * being the concatenation of the characters in a String lhs followed by 
+ * those of c_string rhs
+ * \param String& lhs
+ * \param char* rhs
+ * \return String
+ */
+
 String operator+(const String& lhs, const char* rhs){
 	String result;
 	int rhs_length = result.length(rhs); //In case that string is super long 
@@ -394,7 +436,7 @@ String operator+(const String& lhs, const char* rhs){
 		result.data_= new char[result.capacity_ + 1];
 		for (unsigned int i=0; i < lhs.length(); i++)
 			result.data_[i]=lhs.data_[i];
-		for (unsigned int i=0; i < rhs_length; i++)
+		for (int i=0; i < rhs_length; i++)
 			result.data_[i+lhs.length()]=rhs[i];
 		// Here, we need to make a choice bewteen lhs.length() and 
 		// lhs.size_
@@ -404,4 +446,45 @@ String operator+(const String& lhs, const char* rhs){
 		// loop, which could be a lot if string is long.
 		return result;
 	}
+}
+
+/**
+ * \brief operator+ overloading
+ * \details returns a newly constructed String object with its value 
+ * being the concatenation of the characters in a String s followed by 
+ * c character
+ * \param String&s
+ * \param char c
+ * \return String
+ */
+
+String operator+(const String& s, const char c){
+    if(s.size()==String::MAX_SIZE){
+	printf("Depasse capacite");
+	return s;
+    }else{
+	String Snew;
+	Snew.size_=s.size_+1;
+	Snew.capacity_=Snew.getCapacity(Snew.size_);
+	Snew.data_=new char[Snew.capacity_+1];
+	for(unsigned int i=0; i<s.size_;i++){
+	    Snew.data_[i]=s.data_[i];
+	}
+	Snew.data_[s.size_]=c;
+	Snew.data_[s.size_+1]='\0';
+	return Snew;
+    }
+}
+
+
+/**
+ * \brief operator[] overload
+ * \details returns a reference to the character at position pos in the 
+ * String
+ * \param int pos
+ * \return char&
+ */
+
+char String::getChar(int pos)const{
+    return data_[pos];
 }
