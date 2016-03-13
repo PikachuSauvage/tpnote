@@ -5,14 +5,14 @@
 
 int main(int argc, char* argv[]){
     //Test Constructors:
-    printf("==Test of defaut constructor String()==\n");
+    printf("==Test for defaut constructor String()==\n");
     String h1=String();
     printf("String h1 delarated with String h=String()\n");
     printf("c_str: %s \n",h1.c_str());
     printf("Length: %zu \n", h1.length());
     printf("Capacity: %zu \n\n",h1.capacity());
     
-	printf("==Test of fill constructor String(size_t n, char c)==\n");
+	printf("==Test for fill constructor String(size_t n, char c)==\n");
     String h2=String(5,'x');
     printf("String h2 delarated with String h2=String(5,'x')\n");
     printf("c_str: %s \n",h2.c_str());
@@ -31,7 +31,7 @@ int main(int argc, char* argv[]){
     printf("Length: %zu \n", h4.length());
     printf("Capacity: %zu \n\n",h4.capacity());
     
-    printf("==Test of Copy Constructor String(const String& str)==\n");
+    printf("==Test for Copy Constructor String(const String& str)==\n");
     String h5=String(h1);
     printf("String h5 delarated with String h5=String(h1)\n");
     printf("c_str: %s \n",h5.c_str());
@@ -44,7 +44,9 @@ int main(int argc, char* argv[]){
     printf("Length: %zu \n", h6.length());
     printf("Capacity: %zu \n\n",h6.capacity());
 	
+	printf("==Test for C_str Constructor String(char* s)==\n");
 	char c1[]= "abcdefg";
+	printf("c1 = %s\n", c1);
 	String h7=String(c1);
     printf("String h7 delarated with String h7=String(c1)\n");
     printf("c_str: %s \n",h7.c_str());
@@ -52,12 +54,20 @@ int main(int argc, char* argv[]){
     printf("Capacity: %zu \n\n",h7.capacity());
     
     char c2[]= "12345678901234567890123456789012345678901234567890"
-    "123456789012345678901234567890123456789012345678901234567890";
+    "123456789012345678901234567890123456789012345678901234567890"
+    "1234567890";
+    printf("c2 =%s (lenth=110)\n",c2);
 	String h8=String(c2);
     printf("String h8 delarated with String h8=String(c2)\n");
     printf("c_str: %s \n",h8.c_str());
     printf("Length: %zu \n", h8.length());
     printf("Capacity: %zu \n\n",h8.capacity());
+    
+    
+    //Test of Public Methods
+    printf("==Test for c_str()==\n");
+    
+    
     //String h2(5,'x');
     //String h3=h2;
     ////printf ("%s \n",h3.c_str());
