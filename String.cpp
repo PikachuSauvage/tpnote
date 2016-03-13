@@ -51,16 +51,14 @@ String::String(size_t n , char c){
  * \param const String& s as copied String
  * \return \e void
  */
-String::String (const String& s){
-    if(s.size()<MAX_SIZE){  
-	size_=s.size();
+String::String (const String& str){ 
+	size_=str.size();
 	capacity_=getCapacity(size_);
 	data_= new char[capacity_+1]; // dpa OK
 	for(unsigned int i=0; i<size_;i++){
-	    data_[i]=s.getChar(i);
+	    data_[i]=str.getChar(i);
 	}
-	data_[size_+1]='\0';
-    }
+	data_[size_]='\0';
 }
 
 /**

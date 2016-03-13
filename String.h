@@ -37,7 +37,7 @@ class String{
     String();
     String(size_t n , char c) ;
     String(char* str_in);
-    String(const String& s);
+    String(const String& str);
     
     // =================================================================
     //                                 Destructor
