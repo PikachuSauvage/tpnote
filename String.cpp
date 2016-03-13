@@ -33,7 +33,7 @@ String::String(){
 String::String(size_t n , char c){
 	if (n>MAX_SIZE) {
 		printf("Warning: input size exceed the MAX_SIZE,"
-		"it will be shorted to MAX_SIZE which is %lu \n",MAX_SIZE);
+		"it will be shortened to MAX_SIZE which is %lu \n",MAX_SIZE);
 		n=MAX_SIZE;
 	}
     size_=n;
@@ -124,7 +124,7 @@ size_t String::length(const char* s){
     while (s[len] != '\0'){
 		if (len>= MAX_SIZE){
 			printf("Warning : c_str input is too long and will be"
-			"shorted to MAX_SIZE which is %lu\n", MAX_SIZE);
+			"shortened to MAX_SIZE which is %lu\n", MAX_SIZE);
 			break;
 		}
 		len++;
@@ -238,18 +238,22 @@ void String :: reserve (){
  */
  
 void String::resize(size_t count){
+    if (count > MAX_SIZE){
+	printf("Warning (String::resize): requied size exceed MAX_SIZE "
+	       "and it will be shortened to MAX_SIZE which is %zu\n",MAX_SIZE);
+	count=MAX_SIZE;
+    }
     if (count > size_){
 	if (count < capacity_) {
-	    for (size_t i=size_; i< count; i++)
+	    for (size_t i=size_; i<count; i++)
 		data_[i]=' ';
 	    data_[count]='\0';
 	    size_=count;
 	} else {
-	    char* nptr= new char [count+1];
-	    for (unsigned int i =0; i<size_; i++){
+	    char* nptr= new char [getCapacity(count)+1];
+	    for (unsigned int i =0; i<size_; i++)
 		nptr[i]=data_[i];
-	    }
-	    for (size_t i=size_; i< count; i++)
+	    for (size_t i=size_; i<count; i++)
 		nptr[i]=' ';
 	    nptr[count]='\0';
 	    delete[] data_;
@@ -270,26 +274,31 @@ void String::resize(size_t count){
  */
  
 void String::resize(size_t count, char c){
+    if (count > MAX_SIZE){
+	printf("Warning (String::resize): requied size exceed MAX_SIZE "
+	       "and it will be shortened to MAX_SIZE which is %zu\n",MAX_SIZE);
+	count=MAX_SIZE;
+    }
     if (count > size_){
-		if (count < capacity_) {
-			for (size_t i=size_; i< count; i++)
-				data_[i]=c;
-			data_[count]='\0';
-			size_=count;
-		} else {
-			char* nptr= new char [count+1];
-			for (unsigned int i =0; i<size_; i++)
-				nptr[i]=data_[i];
-			for (size_t i=size_; i< count; i++)
-				nptr[i]=c;
-			nptr[count]='\0';
-			delete[] data_;
-			data_=nptr;
-			size_=count;
-		}
+	if (count < capacity_) {
+	    for (size_t i=size_; i< count; i++)
+		data_[i]=c;
+	    data_[count]='\0';
+	    size_=count;
+	} else {
+	    char* nptr=new char [count+1];
+	    for (unsigned int i=0; i<size_; i++)
+		nptr[i]=data_[i];
+	    for (size_t i=size_; i< count; i++)
+		nptr[i]=c;
+	    nptr[count]='\0';
+	    delete[] data_;
+	    data_=nptr;
+	    size_=count;
+	}
     } else {
-		data_[count]='\0';
-		size_=count;
+	data_[count]='\0';
+	size_=count;
     }
 }
 
@@ -403,7 +412,8 @@ String operator+(const String& A,const String& B){
 
 String operator+(const String& lhs, const char* rhs){
 	String result;
-	int rhs_length = result.length(rhs); //In case that string is super long 
+	int rhs_length = result.length(rhs); 
+	//In case that string is super long 
 	if (lhs.length()+rhs_length > String::MAX_SIZE ) {
 		printf("Warning: strings concatenation size out of range");
 		result.size_=lhs.size_;
