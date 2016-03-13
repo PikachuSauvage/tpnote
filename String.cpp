@@ -122,7 +122,7 @@ size_t String::getCapacity(size_t size){
 size_t String::length(const char* s){
     size_t len=0;
     while (s[len] != '\0'){
-		if (len>= MAX_SIZE-1){
+		if (len>= MAX_SIZE){
 			printf("Warning : c_str input is too long and will be"
 			"shorted to MAX_SIZE which is %lu\n", MAX_SIZE);
 			break;
