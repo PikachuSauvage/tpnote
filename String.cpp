@@ -31,16 +31,17 @@ String::String(){
  * \return \e void
  */
 String::String(size_t n , char c){
-	if (n>MAX_SIZE) {
-		printf("Warning: input size exceed the MAX_SIZE,"
-		"it will be shortened to MAX_SIZE which is %lu \n",MAX_SIZE);
-		n=MAX_SIZE;
-	}
+    if (n>MAX_SIZE) {
+	printf("Warning: input size exceed the MAX_SIZE,"
+	       "it will be shortened to MAX_SIZE which is %lu \n"
+	       ,MAX_SIZE);
+	n=MAX_SIZE;
+    }
     size_=n;
     capacity_=getCapacity(n);
     data_=new char[capacity_+1];
     for (unsigned int i =0; i<n; i++){
-		data_[i]=c;
+	data_[i]=c;
     }
     data_[n]='\0';
 }
@@ -52,12 +53,12 @@ String::String(size_t n , char c){
  * \return \e void
  */
 String::String (const String& str){ 
-	size_=str.size();
-	capacity_=getCapacity(size_);
-	data_= new char[capacity_+1];
-	for(unsigned int i=0; i<size_;i++)
-	    data_[i]=str[i];
-	data_[size_]='\0';
+    size_=str.size();
+    capacity_=getCapacity(size_);
+    data_= new char[capacity_+1];
+    for(unsigned int i=0; i<size_;i++)
+	data_[i]=str[i];
+    data_[size_]='\0';
 }
 
 /**
@@ -67,12 +68,12 @@ String::String (const String& str){
  * \return \e void
  */
 String::String(char* str_in){
-	size_=length(str_in);
+    size_=length(str_in);
     capacity_=getCapacity(size_);
     data_=new char[capacity_+1];
     for (unsigned int i = 0; i < size_; i++)
-		data_[i]=str_in[i];
-	data_[size_]='\0';
+	data_[i]=str_in[i];
+    data_[size_]='\0';
 }
 
 
@@ -106,9 +107,9 @@ String::~String()
 size_t String::getCapacity(size_t size){
     size=size*2;
     if (size>(MAX_SIZE/2))
-      return MAX_SIZE;
+	return MAX_SIZE;
     else
-      return size;
+	return size;
 }
 
 /**
@@ -121,12 +122,12 @@ size_t String::getCapacity(size_t size){
 size_t String::length(const char* s){
     size_t len=0;
     while (s[len] != '\0'){
-		if (len>= MAX_SIZE){
-			printf("Warning : c_str input is too long and will be"
-			"shortened to MAX_SIZE which is %lu\n", MAX_SIZE);
-			break;
-		}
-		len++;
+	if (len>= MAX_SIZE){
+	    printf("Warning : c_str input is too long and will be"
+		   "shortened to MAX_SIZE which is %lu\n", MAX_SIZE);
+	    break;
+	}
+	len++;
     }
     return len;
 }
@@ -155,7 +156,7 @@ const char* String::c_str() const noexcept{
  * \return void
  */
 void String::clear() noexcept{
-	data_[0]='\0';
+    data_[0]='\0';
     size_=0;
 }
 
@@ -190,7 +191,7 @@ void String :: reserve (size_t n){
 	    printf("Warning(reserve): can't allow required capacity\n");
 	    //When requied size exceed, refuse and do nothing
 	} else {
-		//realloc
+	    //realloc
 	    char* new_data = new char[n+1];
 	    for (unsigned int i =0; i<=size_; i++)
 		new_data[i]=data_[i];
@@ -198,7 +199,7 @@ void String :: reserve (size_t n){
 	    data_=new_data;
 	    capacity_=n;
 	}
-	}
+    }
 }
 /**
  * \brief reserve overload
@@ -364,7 +365,7 @@ String operator+(const String& lhs,const String& rhs){
     String result;
     if (lhs.size_+rhs.size_>String :: MAX_SIZE){ //why String::MAX_SIZE
 	printf("Warning (operator+()):too long, "
-	"taking only left hand side");
+	       "taking only left hand side");
 	result.size_=lhs.size_;
 	result.capacity_=lhs.capacity_;
 	delete[] result.data_;
@@ -377,9 +378,9 @@ String operator+(const String& lhs,const String& rhs){
 	delete[] result.data_;
 	result.data_=new char [result.capacity_+1];
 	for (unsigned int i=0; i<lhs.size(); i++)
-		result.data_[i]=lhs.data_[i];
+	    result.data_[i]=lhs.data_[i];
 	for (unsigned int i=lhs.size(); i<=result.size(); i++)
-		result.data_[i]=rhs.data_[i-lhs.size_];
+	    result.data_[i]=rhs.data_[i-lhs.size_];
 	//result.data_[result.size_]='\0';
     }
     return result;
@@ -389,79 +390,79 @@ String operator+(const String& lhs,const String& rhs){
 /**
  * \brief operator+ overloading
  * \details returns a newly constructed String object with its value 
- * being the concatenation of the characters in a String lhs followed by 
- * those of c_string rhs
+ * being the concatenation of the characters in a String lhs followed  
+ * by those of c_string rhs
  * \param String& lhs
  * \param char* rhs
  * \return String
  */
 
 String operator+(const String& lhs, const char* rhs){
-	String result;
-	int rhs_length = result.length(rhs); 
-	//In case that string is super long 
-	if (lhs.length()+rhs_length > String::MAX_SIZE ) {
-		printf("Warning (operator+): strings concatenation size out of range"
-		" taking only left hand side\n");
-		result=lhs;
-		return result;
-	} else {
-		result.size_=lhs.length()+rhs_length;
-		result.capacity_=result.getCapacity(result.size_);
-		result.data_= new char[result.capacity_ + 1];
-		for (unsigned int i=0; i < lhs.length(); i++)
-			result.data_[i]=lhs.data_[i];
-		for (int i=0; i < rhs_length; i++)
-			result.data_[i+lhs.length()]=rhs[i];
-		result.data_[result.size_]='\0';
-		// Need to give '\0' manually in case str.len()=0 and c_str=100
-		// and not null-terminated
+    String result;
+    int rhs_length = result.length(rhs); 
+    //In case that string is super long 
+    if (lhs.length()+rhs_length > String::MAX_SIZE ) {
+	printf("Warning (operator+): strings concatenation size "
+	       "out of range, taking only left hand side\n");
+	result=lhs;
+	return result;
+    } else {
+	result.size_=lhs.length()+rhs_length;
+	result.capacity_=result.getCapacity(result.size_);
+	result.data_= new char[result.capacity_ + 1];
+	for (unsigned int i=0; i < lhs.length(); i++)
+	    result.data_[i]=lhs.data_[i];
+	for (int i=0; i < rhs_length; i++)
+	    result.data_[i+lhs.length()]=rhs[i];
+	result.data_[result.size_]='\0';
+	// Need to give '\0' manually in case str.len()=0 and c_str=100
+	// and not null-terminated
 		
-		// Here, we need to make a choice bewteen lhs.length() and 
-		// lhs.size_
-		// lhs.length() is a legal public method which not requires 
-		// make friend of 2 objects
-		// On the other hand, it will be called at each turn in the for 
-		// loop, which could be a lot if string is long.
-		return result;
-	}
+	// Here, we need to make a choice bewteen lhs.length() and 
+	// lhs.size_
+	// lhs.length() is a legal public method which not requires 
+	// make friend of 2 objects
+	// On the other hand, it will be called at each turn in the for 
+	// loop, which could be a lot if string is long.
+	return result;
+    }
 }
 
 /**
  * \brief operator+ overloading
  * \details returns a newly constructed String object with its value 
- * being the concatenation of the characters in a String lhs followed by 
- * those of c_string rhs
+ * being the concatenation of the characters in a String lhs followed 
+ * by those of c_string rhs
  * \param String& lhs
  * \param char* rhs
  * \return String
  */
 
 String operator+(const char* lhs, const String& rhs){
-	String result;
-	int lhs_length = result.length(lhs); 
-	//In case that string is super long 
-	if (lhs_length+rhs.length() > String::MAX_SIZE ) {
-		printf("Warning(operator+): strings concatenation size out of range"
-		" taking only left hand side\n");
-		result=lhs;
-		return result;
-	} else {
-		result.size_=rhs.length()+lhs_length;
-		result.capacity_=result.getCapacity(result.size_);
-		result.data_= new char[result.capacity_ + 1];
-		for (unsigned int i=0; i < lhs_length; i++)
-			result.data_[i]=lhs[i];
-		for (int i=0; i <= rhs.length(); i++)
-			result.data_[i+lhs_length]=rhs.data_[i];
-		// Here, we need to make a choice bewteen lhs.length() and 
-		// lhs.size_
-		// lhs.length() is a legal public method which not requires 
-		// make friend of 2 objects
-		// On the other hand, it will be called at each turn in the for 
-		// loop, which could be a lot if string is long.
-		return result;
-	}
+    String result;
+    int lhs_length = result.length(lhs); 
+    //In case that string is super long 
+    if (lhs_length+rhs.length() > String::MAX_SIZE ) {
+	printf("Warning(operator+): strings concatenation size out "
+	       "of range, taking only left hand side\n");
+	result=lhs;
+	return result;
+    } else {
+	result.size_=rhs.length()+lhs_length;
+	result.capacity_=result.getCapacity(result.size_);
+	result.data_= new char[result.capacity_ + 1];
+	for (unsigned int i=0; i < lhs_length; i++)
+	    result.data_[i]=lhs[i];
+	for (int i=0; i <= rhs.length(); i++)
+	    result.data_[i+lhs_length]=rhs.data_[i];
+	// Here, we need to make a choice bewteen lhs.length() and 
+	// lhs.size_
+	// lhs.length() is a legal public method which not requires 
+	// make friend of 2 objects
+	// On the other hand, it will be called at each turn in the for 
+	// loop, which could be a lot if string is long.
+	return result;
+    }
 }
 
 /**
@@ -475,10 +476,10 @@ String operator+(const char* lhs, const String& rhs){
  */
 
 String operator+(const String& s, const char c){
-	String result;
+    String result;
     if(s.size()==String::MAX_SIZE){
 	printf("Warning(operator +): "
-	"MAX_SIZE achived, failed add one more char\n");
+	       "MAX_SIZE achived, failed add one more char\n");
 	result=s;
 	return result;
     }else{
@@ -494,9 +495,10 @@ String operator+(const String& s, const char c){
 }
 
 String operator+(const char c, const String& s){
-	String result;
+    String result;
     if(s.size()==String::MAX_SIZE){
-	printf("Warning(operator +): failed to add a max-sized string\n");
+	printf("Warning(operator +): "
+	       "failed to add a max-sized string\n");
 	result=c;
 	return result;
     }else{
@@ -518,21 +520,21 @@ String operator+(const char c, const String& s){
  * \return char&
  */
 char& String::operator[] (size_t pos){
-	if (pos<=MAX_SIZE)
+    if (pos<=MAX_SIZE)
 	return data_[pos];
-	else{
+    else{
 	printf("Warning(operator[]): "
-	"Requied position out of range, returning last char\n");
+	       "Requied position out of range, returning last char\n");
 	return data_[MAX_SIZE];//Haven't found a better solution;
-}
+    }
 }
 
 const char& String::operator[] (size_t pos) const{
-	if (pos<=MAX_SIZE)
+    if (pos<=MAX_SIZE)
 	return data_[pos];
-	else{
+    else{
 	printf("Warning(operator[]): "
-	"Requied position out of range, returning last char\n");
+	       "Requied position out of range, returning last char\n");
 	return data_[MAX_SIZE];//Haven't found a better solution;
-}
+    }
 }

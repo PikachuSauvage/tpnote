@@ -9,22 +9,17 @@
 
 class String{
  protected:
- 
     // length of the String, unsigned integral type
     size_t size_;
-
     // \0 ended tab of char representing the String
     char* data_;
-    
     // size of the storage space currently allocated for the String
     size_t capacity_;
-    
     // Max length a String can reach 
     static const size_t MAX_SIZE;
-    
-    // =================================================================
+    // ================================================================
     //                              Protected Methods
-    // =================================================================
+    // ================================================================
     
     size_t getCapacity(size_t size); 
     static size_t length(const char* s);
@@ -75,7 +70,7 @@ class String{
     friend String operator+(const String& lhs, const char* rhs);
     friend String operator+(const char* lhs, const String& rhs);
     char& operator[] (size_t pos);
-	const char& operator[] (size_t pos) const;
+    const char& operator[] (size_t pos) const;
 };
 
 // =====================================================================
@@ -94,8 +89,8 @@ inline String& String :: operator=(const char* other){
     capacity_=getCapacity(size_);
     data_=new char[capacity_+1];
     for (unsigned int i=0; i<size_; i++)
-		data_[i]=other[i];
-	data_[size_]='\0';
+	data_[i]=other[i];
+    data_[size_]='\0';
     return *this;
 }
 /**
@@ -104,28 +99,28 @@ inline String& String :: operator=(const char* other){
  * \param char
  * \return *this
  */
-inline String& String :: operator=(char c){
-    size_=1;
-    capacity_=getCapacity(size_);
-    data_=new char[capacity_+1]; 
-    data_[0]=c;
-    data_[size_]='\0';
-    return *this;
-}
+    inline String& String :: operator=(char c){
+	size_=1;
+	capacity_=getCapacity(size_);
+	data_=new char[capacity_+1]; 
+	data_[0]=c;
+	data_[size_]='\0';
+	return *this;
+    }
 
-/**
- * \brief operator= overloading
- * \details overloading with String given
- * \param String
- * \return *this
- */
-inline String& String::operator=(const String elem){
-    size_=elem.size_;
-    capacity_=getCapacity(size_);
-    data_= new char[capacity_+1];
-    for(unsigned int i=0; i<=size_;i++)
+    /**
+     * \brief operator= overloading
+     * \details overloading with String given
+     * \param String
+     * \return *this
+     */
+	inline String& String::operator=(const String elem){
+	    size_=elem.size_;
+	    capacity_=getCapacity(size_);
+	    data_= new char[capacity_+1];
+	    for(unsigned int i=0; i<=size_;i++)
 		data_[i]=elem.data_[i];
-    return *this;
-}
+	    return *this;
+	}
 
 #endif // STRING_H_
