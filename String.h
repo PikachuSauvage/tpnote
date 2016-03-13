@@ -37,7 +37,7 @@ class String{
     String();
     String(size_t n , char c) ;
     String(char* str_in);
-    String( const String& s );
+    String(const String& s);
     
     // =================================================================
     //                                 Destructor
@@ -53,6 +53,7 @@ class String{
     void reserve (size_t n );
     void reserve ();
     void resize(size_t count);
+    void resize(size_t count, char c);
     // =========================================================================
     //                                  Getters
     // =========================================================================
