@@ -31,11 +31,16 @@ String::String(){
  * \return \e void
  */
 String::String(size_t n , char c){
+	if (n>MAX_SIZE) {
+		printf("Warning: input size exceed the MAX_SIZE,"
+		"it will be shorted to MAX_SIZE which is %lu \n",MAX_SIZE);
+		n=MAX_SIZE;
+	}
     size_=n;
     capacity_=getCapacity(n);
     data_=new char[capacity_+1];
     for (unsigned int i =0; i<n; i++){
-	data_[i]=c;
+		data_[i]=c;
     }
     data_[n]='\0';
 }
