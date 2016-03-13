@@ -110,7 +110,7 @@ String::~String()
 
 size_t String::getCapacity(size_t size){
     size=size*2;
-    if (size>MAX_SIZE)
+    if (size>(MAX_SIZE/2))
       return MAX_SIZE;
     else
       return size;

@@ -13,10 +13,24 @@ int main(int argc, char* argv[]){
     printf("c_str: %s \n",h1.c_str());
     printf("Length: %zu \n", h1.length());
     printf("Capacity: %zu \n",h1.capacity());
+    
     String h2=String(5,'x');
     printf("String h2 delarated with String h2=String(5,'x')\n");
+    printf("c_str: %s \n",h2.c_str());
     printf("Length: %zu \n", h2.length());
     printf("Capacity: %zu \n",h2.capacity());
+    
+    String h3=String(55,'x');
+	printf("String h3 delarated with String h3=String(55,'x')\n");
+	printf("c_str: %s \n",h3.c_str());
+    printf("Length: %zu \n", h3.length());
+    printf("Capacity: %zu \n",h3.capacity());
+    
+    String h4=String(155,'x');
+	printf("String h4 delarated with String h4=String(155,'x')\n");
+    printf("c_str: %s \n",h4.c_str());    
+    printf("Length: %zu \n", h4.length());
+    printf("Capacity: %zu \n",h4.capacity());
     //String h2(5,'x');
     //String h3=h2;
     ////printf ("%s \n",h3.c_str());
